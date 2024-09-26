@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_mainIfmuRl.ui'
+## Form generated from reading UI file 'ui_mainAceLLE.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -16,11 +16,11 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QIcon, QImage, QKeySequence, QLinearGradient,
     QPainter, QPalette, QPixmap, QRadialGradient,
     QTransform)
-from PySide6.QtWidgets import (QApplication, QCheckBox, QFrame, QGridLayout,
-    QHBoxLayout, QLabel, QLayout, QMainWindow,
-    QMenu, QMenuBar, QPushButton, QSizePolicy,
-    QSlider, QSpinBox, QStatusBar, QTabWidget,
-    QTextBrowser, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QFrame,
+    QGridLayout, QHBoxLayout, QLabel, QLayout,
+    QMainWindow, QMenu, QMenuBar, QPushButton,
+    QSizePolicy, QSlider, QSpinBox, QStatusBar,
+    QTabWidget, QTextBrowser, QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -46,6 +46,8 @@ class Ui_MainWindow(object):
         self.actionClear.setObjectName(u"actionClear")
         self.actionScale_Bar = QAction(MainWindow)
         self.actionScale_Bar.setObjectName(u"actionScale_Bar")
+        self.actionAdjustments = QAction(MainWindow)
+        self.actionAdjustments.setObjectName(u"actionAdjustments")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.frame = QFrame(self.centralwidget)
@@ -103,7 +105,7 @@ class Ui_MainWindow(object):
         self.frame_2.setLineWidth(8)
         self.verticalLayoutWidget_2 = QWidget(self.frame_2)
         self.verticalLayoutWidget_2.setObjectName(u"verticalLayoutWidget_2")
-        self.verticalLayoutWidget_2.setGeometry(QRect(9, 56, 351, 191))
+        self.verticalLayoutWidget_2.setGeometry(QRect(10, 50, 351, 201))
         self.verticalLayout_2 = QVBoxLayout(self.verticalLayoutWidget_2)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
@@ -230,6 +232,7 @@ class Ui_MainWindow(object):
         self.contourSlider.setObjectName(u"contourSlider")
         self.contourSlider.setEnabled(False)
         self.contourSlider.setFont(font1)
+        self.contourSlider.setMinimum(-100)
         self.contourSlider.setMaximum(100)
         self.contourSlider.setOrientation(Qt.Orientation.Horizontal)
         self.contourSlider.setInvertedAppearance(False)
@@ -244,6 +247,7 @@ class Ui_MainWindow(object):
         self.contourValue.setEnabled(False)
         self.contourValue.setMinimumSize(QSize(100, 0))
         self.contourValue.setFont(font1)
+        self.contourValue.setMinimum(-100)
         self.contourValue.setMaximum(100)
 
         self.horizontalLayout_3.addWidget(self.contourValue)
@@ -281,75 +285,6 @@ class Ui_MainWindow(object):
         self.frame_3.setFrameShape(QFrame.Shape.WinPanel)
         self.frame_3.setFrameShadow(QFrame.Shadow.Raised)
         self.frame_3.setLineWidth(8)
-        self.verticalLayoutWidget_4 = QWidget(self.frame_3)
-        self.verticalLayoutWidget_4.setObjectName(u"verticalLayoutWidget_4")
-        self.verticalLayoutWidget_4.setGeometry(QRect(9, 49, 351, 201))
-        self.verticalLayout_9 = QVBoxLayout(self.verticalLayoutWidget_4)
-        self.verticalLayout_9.setObjectName(u"verticalLayout_9")
-        self.verticalLayout_9.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_10 = QVBoxLayout()
-        self.verticalLayout_10.setObjectName(u"verticalLayout_10")
-        self.horizontalLayout_7 = QHBoxLayout()
-        self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
-        self.frameDifferencing = QCheckBox(self.verticalLayoutWidget_4)
-        self.frameDifferencing.setObjectName(u"frameDifferencing")
-        self.frameDifferencing.setFont(font1)
-
-        self.horizontalLayout_7.addWidget(self.frameDifferencing)
-
-        self.frameDifferencingSensitivity = QSpinBox(self.verticalLayoutWidget_4)
-        self.frameDifferencingSensitivity.setObjectName(u"frameDifferencingSensitivity")
-        self.frameDifferencingSensitivity.setEnabled(False)
-        self.frameDifferencingSensitivity.setMaximumSize(QSize(122, 16777215))
-        self.frameDifferencingSensitivity.setFont(font1)
-        self.frameDifferencingSensitivity.setMaximum(100)
-
-        self.horizontalLayout_7.addWidget(self.frameDifferencingSensitivity)
-
-
-        self.verticalLayout_10.addLayout(self.horizontalLayout_7)
-
-        self.horizontalLayout_8 = QHBoxLayout()
-        self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
-        self.contourDetection = QCheckBox(self.verticalLayoutWidget_4)
-        self.contourDetection.setObjectName(u"contourDetection")
-        self.contourDetection.setFont(font1)
-
-        self.horizontalLayout_8.addWidget(self.contourDetection)
-
-        self.contourDetectionSensitivity = QSpinBox(self.verticalLayoutWidget_4)
-        self.contourDetectionSensitivity.setObjectName(u"contourDetectionSensitivity")
-        self.contourDetectionSensitivity.setEnabled(False)
-        self.contourDetectionSensitivity.setMaximumSize(QSize(122, 16777215))
-        self.contourDetectionSensitivity.setFont(font1)
-        self.contourDetectionSensitivity.setMaximum(100)
-
-        self.horizontalLayout_8.addWidget(self.contourDetectionSensitivity)
-
-
-        self.verticalLayout_10.addLayout(self.horizontalLayout_8)
-
-        self.checkBox_4 = QCheckBox(self.verticalLayoutWidget_4)
-        self.checkBox_4.setObjectName(u"checkBox_4")
-        self.checkBox_4.setFont(font1)
-
-        self.verticalLayout_10.addWidget(self.checkBox_4)
-
-        self.checkBox_3 = QCheckBox(self.verticalLayoutWidget_4)
-        self.checkBox_3.setObjectName(u"checkBox_3")
-        self.checkBox_3.setFont(font1)
-
-        self.verticalLayout_10.addWidget(self.checkBox_3)
-
-        self.checkBox_2 = QCheckBox(self.verticalLayoutWidget_4)
-        self.checkBox_2.setObjectName(u"checkBox_2")
-        self.checkBox_2.setFont(font1)
-
-        self.verticalLayout_10.addWidget(self.checkBox_2)
-
-
-        self.verticalLayout_9.addLayout(self.verticalLayout_10)
-
         self.frame_5 = QFrame(self.frame_3)
         self.frame_5.setObjectName(u"frame_5")
         self.frame_5.setGeometry(QRect(10, 10, 347, 31))
@@ -368,6 +303,157 @@ class Ui_MainWindow(object):
         self.trackingTitle.setFrameShadow(QFrame.Shadow.Raised)
         self.trackingTitle.setTextFormat(Qt.TextFormat.RichText)
         self.trackingTitle.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.verticalLayoutWidget_3 = QWidget(self.frame_3)
+        self.verticalLayoutWidget_3.setObjectName(u"verticalLayoutWidget_3")
+        self.verticalLayoutWidget_3.setGeometry(QRect(10, 50, 351, 201))
+        self.verticalLayout_5 = QVBoxLayout(self.verticalLayoutWidget_3)
+        self.verticalLayout_5.setObjectName(u"verticalLayout_5")
+        self.verticalLayout_5.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_6 = QVBoxLayout()
+        self.verticalLayout_6.setObjectName(u"verticalLayout_6")
+        self.verticalLayout_6.setContentsMargins(-1, 0, -1, -1)
+        self.threshold_2 = QLabel(self.verticalLayoutWidget_3)
+        self.threshold_2.setObjectName(u"threshold_2")
+        self.threshold_2.setFont(font1)
+        self.threshold_2.setFrameShape(QFrame.Shape.NoFrame)
+        self.threshold_2.setFrameShadow(QFrame.Shadow.Raised)
+        self.threshold_2.setTextFormat(Qt.TextFormat.RichText)
+        self.threshold_2.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.verticalLayout_6.addWidget(self.threshold_2)
+
+        self.horizontalLayout_4 = QHBoxLayout()
+        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
+        self.subBackToggle = QCheckBox(self.verticalLayoutWidget_3)
+        self.subBackToggle.setObjectName(u"subBackToggle")
+        self.subBackToggle.setFont(font1)
+
+        self.horizontalLayout_4.addWidget(self.subBackToggle)
+
+        self.subBackSlider = QSlider(self.verticalLayoutWidget_3)
+        self.subBackSlider.setObjectName(u"subBackSlider")
+        self.subBackSlider.setEnabled(False)
+        self.subBackSlider.setMaximum(100)
+        self.subBackSlider.setOrientation(Qt.Orientation.Horizontal)
+        self.subBackSlider.setInvertedAppearance(False)
+        self.subBackSlider.setInvertedControls(False)
+        self.subBackSlider.setTickPosition(QSlider.TickPosition.TicksBelow)
+        self.subBackSlider.setTickInterval(10)
+
+        self.horizontalLayout_4.addWidget(self.subBackSlider)
+
+        self.subBackValue = QSpinBox(self.verticalLayoutWidget_3)
+        self.subBackValue.setObjectName(u"subBackValue")
+        self.subBackValue.setEnabled(False)
+        self.subBackValue.setMinimumSize(QSize(100, 0))
+        self.subBackValue.setFont(font1)
+        self.subBackValue.setMaximum(100)
+
+        self.horizontalLayout_4.addWidget(self.subBackValue)
+
+
+        self.verticalLayout_6.addLayout(self.horizontalLayout_4)
+
+
+        self.verticalLayout_5.addLayout(self.verticalLayout_6)
+
+        self.verticalLayout_7 = QVBoxLayout()
+        self.verticalLayout_7.setObjectName(u"verticalLayout_7")
+        self.contrast_2 = QLabel(self.verticalLayoutWidget_3)
+        self.contrast_2.setObjectName(u"contrast_2")
+        self.contrast_2.setFont(font1)
+        self.contrast_2.setFrameShape(QFrame.Shape.NoFrame)
+        self.contrast_2.setFrameShadow(QFrame.Shadow.Raised)
+        self.contrast_2.setTextFormat(Qt.TextFormat.RichText)
+        self.contrast_2.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.verticalLayout_7.addWidget(self.contrast_2)
+
+        self.horizontalLayout_5 = QHBoxLayout()
+        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
+        self.frameDiffToggle = QCheckBox(self.verticalLayoutWidget_3)
+        self.frameDiffToggle.setObjectName(u"frameDiffToggle")
+        self.frameDiffToggle.setFont(font1)
+
+        self.horizontalLayout_5.addWidget(self.frameDiffToggle)
+
+        self.frameDiffSlider = QSlider(self.verticalLayoutWidget_3)
+        self.frameDiffSlider.setObjectName(u"frameDiffSlider")
+        self.frameDiffSlider.setEnabled(False)
+        self.frameDiffSlider.setMinimum(0)
+        self.frameDiffSlider.setMaximum(100)
+        self.frameDiffSlider.setOrientation(Qt.Orientation.Horizontal)
+        self.frameDiffSlider.setInvertedAppearance(False)
+        self.frameDiffSlider.setInvertedControls(False)
+        self.frameDiffSlider.setTickPosition(QSlider.TickPosition.TicksBelow)
+        self.frameDiffSlider.setTickInterval(10)
+
+        self.horizontalLayout_5.addWidget(self.frameDiffSlider)
+
+        self.frameDiffValue = QSpinBox(self.verticalLayoutWidget_3)
+        self.frameDiffValue.setObjectName(u"frameDiffValue")
+        self.frameDiffValue.setEnabled(False)
+        self.frameDiffValue.setMinimumSize(QSize(100, 0))
+        self.frameDiffValue.setFont(font1)
+        self.frameDiffValue.setMinimum(0)
+        self.frameDiffValue.setMaximum(100)
+
+        self.horizontalLayout_5.addWidget(self.frameDiffValue)
+
+
+        self.verticalLayout_7.addLayout(self.horizontalLayout_5)
+
+
+        self.verticalLayout_5.addLayout(self.verticalLayout_7)
+
+        self.verticalLayout_8 = QVBoxLayout()
+        self.verticalLayout_8.setObjectName(u"verticalLayout_8")
+        self.contour_2 = QLabel(self.verticalLayoutWidget_3)
+        self.contour_2.setObjectName(u"contour_2")
+        self.contour_2.setFont(font1)
+        self.contour_2.setFrameShape(QFrame.Shape.NoFrame)
+        self.contour_2.setFrameShadow(QFrame.Shadow.Raised)
+        self.contour_2.setTextFormat(Qt.TextFormat.RichText)
+        self.contour_2.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.verticalLayout_8.addWidget(self.contour_2)
+
+        self.horizontalLayout_6 = QHBoxLayout()
+        self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
+        self.contDetectToggle = QCheckBox(self.verticalLayoutWidget_3)
+        self.contDetectToggle.setObjectName(u"contDetectToggle")
+        self.contDetectToggle.setFont(font1)
+
+        self.horizontalLayout_6.addWidget(self.contDetectToggle)
+
+        self.contDetectSlider = QSlider(self.verticalLayoutWidget_3)
+        self.contDetectSlider.setObjectName(u"contDetectSlider")
+        self.contDetectSlider.setEnabled(False)
+        self.contDetectSlider.setFont(font1)
+        self.contDetectSlider.setMaximum(100)
+        self.contDetectSlider.setOrientation(Qt.Orientation.Horizontal)
+        self.contDetectSlider.setInvertedAppearance(False)
+        self.contDetectSlider.setInvertedControls(False)
+        self.contDetectSlider.setTickPosition(QSlider.TickPosition.TicksBelow)
+        self.contDetectSlider.setTickInterval(10)
+
+        self.horizontalLayout_6.addWidget(self.contDetectSlider)
+
+        self.contDetectValue = QSpinBox(self.verticalLayoutWidget_3)
+        self.contDetectValue.setObjectName(u"contDetectValue")
+        self.contDetectValue.setEnabled(False)
+        self.contDetectValue.setMinimumSize(QSize(100, 0))
+        self.contDetectValue.setFont(font1)
+        self.contDetectValue.setMaximum(100)
+
+        self.horizontalLayout_6.addWidget(self.contDetectValue)
+
+
+        self.verticalLayout_8.addLayout(self.horizontalLayout_6)
+
+
+        self.verticalLayout_5.addLayout(self.verticalLayout_8)
+
         self.frame_4 = QFrame(self.centralwidget)
         self.frame_4.setObjectName(u"frame_4")
         self.frame_4.setGeometry(QRect(20, 600, 1051, 281))
@@ -396,6 +482,12 @@ class Ui_MainWindow(object):
         self.testButton = QPushButton(self.centralwidget)
         self.testButton.setObjectName(u"testButton")
         self.testButton.setGeometry(QRect(310, 570, 75, 24))
+        self.subBackMethod = QComboBox(self.centralwidget)
+        self.subBackMethod.addItem("")
+        self.subBackMethod.addItem("")
+        self.subBackMethod.setObjectName(u"subBackMethod")
+        self.subBackMethod.setEnabled(False)
+        self.subBackMethod.setGeometry(QRect(1002, 364, 59, 25))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
@@ -415,6 +507,7 @@ class Ui_MainWindow(object):
         self.menuFile.addAction(self.actionOpen_Video)
         self.menuFile.addAction(self.actionSave)
         self.menuClear.addAction(self.actionClear)
+        self.menuClear.addAction(self.actionAdjustments)
         self.menuClear.addAction(self.actionScale_Bar)
 
         self.retranslateUi(MainWindow)
@@ -424,14 +517,25 @@ class Ui_MainWindow(object):
         self.contourValue.valueChanged.connect(self.contourSlider.setValue)
         self.contrastValue.valueChanged.connect(self.contrastSlider.setValue)
         self.thresholdValue.valueChanged.connect(self.thresholdSlider.setValue)
-        self.frameDifferencing.toggled.connect(self.frameDifferencingSensitivity.setEnabled)
-        self.contourDetection.toggled.connect(self.contourDetectionSensitivity.setEnabled)
         self.contourToggle.toggled.connect(self.contourSlider.setEnabled)
         self.contourToggle.toggled.connect(self.contourValue.setEnabled)
         self.thresholdToggle.toggled.connect(self.thresholdSlider.setEnabled)
         self.thresholdToggle.toggled.connect(self.thresholdValue.setEnabled)
         self.contrastToggle.toggled.connect(self.contrastSlider.setEnabled)
         self.contrastToggle.toggled.connect(self.contrastValue.setEnabled)
+        self.contDetectSlider.valueChanged.connect(self.contDetectValue.setValue)
+        self.contDetectToggle.toggled.connect(self.contDetectValue.setEnabled)
+        self.contDetectValue.valueChanged.connect(self.contDetectSlider.setValue)
+        self.frameDiffSlider.valueChanged.connect(self.frameDiffValue.setValue)
+        self.frameDiffToggle.toggled.connect(self.frameDiffSlider.setEnabled)
+        self.frameDiffValue.valueChanged.connect(self.frameDiffSlider.setValue)
+        self.subBackValue.valueChanged.connect(self.subBackSlider.setValue)
+        self.subBackToggle.toggled.connect(self.subBackSlider.setEnabled)
+        self.subBackSlider.valueChanged.connect(self.subBackValue.setValue)
+        self.subBackToggle.toggled.connect(self.subBackValue.setEnabled)
+        self.contDetectToggle.toggled.connect(self.contDetectSlider.setEnabled)
+        self.frameDiffToggle.toggled.connect(self.frameDiffValue.setEnabled)
+        self.subBackToggle.toggled.connect(self.subBackMethod.setEnabled)
 
         QMetaObject.connectSlotsByName(MainWindow)
     # setupUi
@@ -442,23 +546,28 @@ class Ui_MainWindow(object):
         self.actionSave.setText(QCoreApplication.translate("MainWindow", u"Export", None))
         self.actionClear.setText(QCoreApplication.translate("MainWindow", u"Clear", None))
         self.actionScale_Bar.setText(QCoreApplication.translate("MainWindow", u"Scale Bar", None))
+        self.actionAdjustments.setText(QCoreApplication.translate("MainWindow", u"Adjustments", None))
         self.trackingTitle_2.setText(QCoreApplication.translate("MainWindow", u"Videos", None))
         self.video_1.setText("")
         self.threshold.setText(QCoreApplication.translate("MainWindow", u"Threshold", None))
         self.thresholdToggle.setText("")
         self.contrast.setText(QCoreApplication.translate("MainWindow", u"Contrast", None))
         self.contrastToggle.setText("")
-        self.contour.setText(QCoreApplication.translate("MainWindow", u"Contour", None))
+        self.contour.setText(QCoreApplication.translate("MainWindow", u"Emboss", None))
         self.contourToggle.setText("")
         self.trackingTitle_3.setText(QCoreApplication.translate("MainWindow", u"Settings", None))
-        self.frameDifferencing.setText(QCoreApplication.translate("MainWindow", u"Frame Differencing", None))
-        self.contourDetection.setText(QCoreApplication.translate("MainWindow", u"Contour Detection", None))
-        self.checkBox_4.setText(QCoreApplication.translate("MainWindow", u"Optical Flow", None))
-        self.checkBox_3.setText(QCoreApplication.translate("MainWindow", u"Blob Detection", None))
-        self.checkBox_2.setText(QCoreApplication.translate("MainWindow", u"Subtract Background", None))
         self.trackingTitle.setText(QCoreApplication.translate("MainWindow", u"Tracking", None))
+        self.threshold_2.setText(QCoreApplication.translate("MainWindow", u"Subtract Background", None))
+        self.subBackToggle.setText("")
+        self.contrast_2.setText(QCoreApplication.translate("MainWindow", u"Frame Differencing", None))
+        self.frameDiffToggle.setText("")
+        self.contour_2.setText(QCoreApplication.translate("MainWindow", u"Contour Detection", None))
+        self.contDetectToggle.setText("")
         self.consoleOutputTitle.setText(QCoreApplication.translate("MainWindow", u"Console Output", None))
         self.testButton.setText(QCoreApplication.translate("MainWindow", u"Test!", None))
+        self.subBackMethod.setItemText(0, QCoreApplication.translate("MainWindow", u"KNN", None))
+        self.subBackMethod.setItemText(1, QCoreApplication.translate("MainWindow", u"MOG2", None))
+
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))
         self.menuClear.setTitle(QCoreApplication.translate("MainWindow", u"Tools", None))
     # retranslateUi
