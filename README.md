@@ -1,6 +1,7 @@
 # npm-analyser
 Tool to analyze NPM data
 
+Run "main.ipynb"
 
 **Requirements**:
 matplotlib==3.9.2
