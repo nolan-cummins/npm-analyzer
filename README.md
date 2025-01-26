@@ -4,14 +4,11 @@ Tool to analyze NPM data
 Run "main.ipynb"
 
 **Requirements**:
-matplotlib==3.9.2
-numpy==2.0.0
-pandas
-pyqtgraph==0.13.7
-PySide6==6.7.2
-PySide6_Addons==6.7.2
-PySide6_Essentials==6.7.2
-shiboken6==6.7.2
+PySide6~=6.8.1
+pyqtgraph~=0.13.7
+numpy~=1.25.1
+pandas~=2.2.3
+opencv-python~=4.11.0
 
 Figure 1. GUI for NPM analyzer showcasing multi-object tracking and data collection for multiple videos simultaneously.
 
