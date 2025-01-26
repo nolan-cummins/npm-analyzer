@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-def scaleBar(image, scaleFactor=6.9, scaleLength = 30, scaleUnit = 'um', barHeight = 10, border = 1, divisions = 30, fontScale = 1, thickness = 1, posX = 20, posY = 30, font=cv2.FONT_HERSHEY_DUPLEX):
+def scaleBar(image, scaleFactor=6.9, scaleLength = 30, scaleUnit = 'um', barHeight = 10, border = 1, divisions = 30, fontScale = 1, thickness = 1, posX = 20, posY = 30, font=cv2.FONT_HERSHEY_SIMPLEX):
     scaleLengthPixels = int(scaleLength*scaleFactor)
     shape = image.shape
     if len(shape) == 2:  # Grayscale image
