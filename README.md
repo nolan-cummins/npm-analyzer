@@ -1,7 +1,7 @@
 # npm-analyser
 Tool to analyze NPM data
 
-Run "main.ipynb"
+Run "python3 npm.py"
 
 **Requirements**:
 PySide6~=6.8.1
