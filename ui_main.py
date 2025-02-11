@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_main_scrollablejcSNHN.ui'
+## Form generated from reading UI file 'ui_main_scrollableWyqAZP.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -116,7 +116,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, -4, 1061, 870))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 1061, 870))
         self.verticalLayout_3 = QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.verticalLayout = QVBoxLayout()
@@ -835,11 +835,13 @@ class Ui_MainWindow(object):
         self.verticalLayout_7.setObjectName(u"verticalLayout_7")
         self.horizontalLayout_5 = QHBoxLayout()
         self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
+        self.horizontalLayout_18 = QHBoxLayout()
+        self.horizontalLayout_18.setObjectName(u"horizontalLayout_18")
         self.frameDiffToggle = QCheckBox(self.verticalLayoutWidget_3)
         self.frameDiffToggle.setObjectName(u"frameDiffToggle")
         self.frameDiffToggle.setFont(font2)
 
-        self.horizontalLayout_5.addWidget(self.frameDiffToggle)
+        self.horizontalLayout_18.addWidget(self.frameDiffToggle)
 
         self.frameDiffSlider = QSlider(self.verticalLayoutWidget_3)
         self.frameDiffSlider.setObjectName(u"frameDiffSlider")
@@ -851,20 +853,51 @@ class Ui_MainWindow(object):
         self.frameDiffSlider.setInvertedAppearance(False)
         self.frameDiffSlider.setInvertedControls(False)
         self.frameDiffSlider.setTickPosition(QSlider.TickPosition.TicksBelow)
-        self.frameDiffSlider.setTickInterval(10)
+        self.frameDiffSlider.setTickInterval(100)
 
-        self.horizontalLayout_5.addWidget(self.frameDiffSlider)
+        self.horizontalLayout_18.addWidget(self.frameDiffSlider)
 
         self.frameDiffValue = QSpinBox(self.verticalLayoutWidget_3)
         self.frameDiffValue.setObjectName(u"frameDiffValue")
         self.frameDiffValue.setEnabled(False)
-        self.frameDiffValue.setMinimumSize(QSize(100, 0))
-        self.frameDiffValue.setFont(font2)
+        self.frameDiffValue.setMinimumSize(QSize(80, 0))
+        self.frameDiffValue.setMaximumSize(QSize(80, 16777215))
+        font3 = QFont()
+        font3.setPointSize(10)
+        self.frameDiffValue.setFont(font3)
         self.frameDiffValue.setMinimum(0)
-        self.frameDiffValue.setMaximum(1000)
+        self.frameDiffValue.setMaximum(999)
         self.frameDiffValue.setValue(25)
 
-        self.horizontalLayout_5.addWidget(self.frameDiffValue)
+        self.horizontalLayout_18.addWidget(self.frameDiffValue)
+
+        self.frameDiffSliderMax = QSlider(self.verticalLayoutWidget_3)
+        self.frameDiffSliderMax.setObjectName(u"frameDiffSliderMax")
+        self.frameDiffSliderMax.setEnabled(False)
+        self.frameDiffSliderMax.setMinimum(0)
+        self.frameDiffSliderMax.setMaximum(1000)
+        self.frameDiffSliderMax.setValue(25)
+        self.frameDiffSliderMax.setOrientation(Qt.Orientation.Horizontal)
+        self.frameDiffSliderMax.setInvertedAppearance(False)
+        self.frameDiffSliderMax.setInvertedControls(False)
+        self.frameDiffSliderMax.setTickPosition(QSlider.TickPosition.TicksBelow)
+        self.frameDiffSliderMax.setTickInterval(100)
+
+        self.horizontalLayout_18.addWidget(self.frameDiffSliderMax)
+
+        self.frameDiffValueMax = QSpinBox(self.verticalLayoutWidget_3)
+        self.frameDiffValueMax.setObjectName(u"frameDiffValueMax")
+        self.frameDiffValueMax.setEnabled(False)
+        self.frameDiffValueMax.setMinimumSize(QSize(80, 0))
+        self.frameDiffValueMax.setFont(font3)
+        self.frameDiffValueMax.setMinimum(0)
+        self.frameDiffValueMax.setMaximum(999)
+        self.frameDiffValueMax.setValue(100)
+
+        self.horizontalLayout_18.addWidget(self.frameDiffValueMax)
+
+
+        self.horizontalLayout_5.addLayout(self.horizontalLayout_18)
 
 
         self.verticalLayout_7.addLayout(self.horizontalLayout_5)
@@ -994,6 +1027,8 @@ class Ui_MainWindow(object):
         self.record.toggled.connect(self.contDetectSlider.setEnabled)
         self.record.toggled.connect(self.kalmanToggle.setEnabled)
         self.record.toggled.connect(self.contDetectValue.setEnabled)
+        self.frameDiffToggle.toggled.connect(self.frameDiffSliderMax.setEnabled)
+        self.frameDiffToggle.toggled.connect(self.frameDiffValueMax.setEnabled)
 
         self.output.setCurrentIndex(1)
 
