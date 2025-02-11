@@ -385,6 +385,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow): # main window
         self.contDetectSlider.valueChanged.connect(self.contDetectValue.setValue)
         self.contDetectValue.valueChanged.connect(self.contDetectSlider.setValue)
         self.contDetectValue.valueChanged.connect(self.onPersistence)
+        self.frameDiffValueMax.valueChanged.connect(self.frameDiffSliderMax.setValue)
+        self.frameDiffSliderMax.valueChanged.connect(self.frameDiffValueMax.setValue)
         
         self.blurSlider.valueChanged.connect(self.blurValue.setValue)
         self.blurValue.valueChanged.connect(self.blurSlider.setValue)
@@ -1204,7 +1206,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow): # main window
             playVideo.signals.result.connect(self.onFrameReady)
             self.videoConnections.append(playVideo)
             self.threadPool.start(playVideo)  # Start the worker
-            self.backSubsMOG2[videoName] = cv2.createBackgroundSubtractorMOG2(history=90, varThreshold=16+48*self.subBackVal)
+            self.backSubsMOG2[videoName] = cv2.createBackgroundSubtractorMOG2(history=300, varThreshold=16+48*self.subBackVal)
             self.backSubsKNN[videoName] = cv2.createBackgroundSubtractorKNN(dist2Threshold=100+500*self.subBackVal, history=90, detectShadows=False)
     
     def printNewLine(self, msg):
@@ -1342,12 +1344,12 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow): # main window
                     self.printNewLine(f'Invalid frames for {name}!')
                     return None
                 if len(frames) > 1:
-                    processFrame = cv2.convertScaleAbs(np.sum(frames, axis=0))
+                    processFrame = cv2.convertScaleAbs(np.sum(frames, axis=0).astype(np.uint8))
             elif isinstance(frame, list):
                 processFrame = frame[0]
             contours, hierarchy = cv2.findContours(processFrame, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
             for contour in contours:
-                if cv2.contourArea(contour) < self.frameDifVal:
+                if cv2.contourArea(contour) < self.frameDifVal or cv2.contourArea(contour) > self.frameDiffValueMax.value():
                     continue
                 box2D = cv2.minAreaRect(contour)
                 box = cv2.boxPoints(box2D)
