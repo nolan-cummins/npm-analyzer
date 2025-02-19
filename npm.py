@@ -23,6 +23,7 @@ myappid = 'nil.npm.pyqt.2' # arbitrary string
 ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
 from importlib import reload
+import json
 
 import ui_main
 reload(ui_main)
@@ -385,8 +386,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow): # main window
         self.contDetectSlider.valueChanged.connect(self.contDetectValue.setValue)
         self.contDetectValue.valueChanged.connect(self.contDetectSlider.setValue)
         self.contDetectValue.valueChanged.connect(self.onPersistence)
-        self.frameDiffValueMax.valueChanged.connect(self.frameDiffSliderMax.setValue)
-        self.frameDiffSliderMax.valueChanged.connect(self.frameDiffValueMax.setValue)
         
         self.blurSlider.valueChanged.connect(self.blurValue.setValue)
         self.blurValue.valueChanged.connect(self.blurSlider.setValue)
@@ -495,6 +494,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow): # main window
         # data collection
         self.data={}
         self.dataTemp={}
+        self.velocityAreaData={}
         #self.pixToum = 4.2 # 20x
         self.pixToum = 1/0.083 # 60x
         self.scaleLength = 50
@@ -637,8 +637,17 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow): # main window
             elif self.record.isChecked() and self.summaryData[video]:
                 t, v, rot, ali = zip(*self.summaryData[video])
                 dct = {"Timestamp (s)":t,"Velocity (um/s)":v,"Rotational Velocity (deg/s)":rot,"Alignment Angle (deg)":ali}
-                df = pd.DataFrame(dct)
-                df.to_csv(f'{self.output_dir}/{video}.csv', index=False, header=True)
+                summaryData = pd.DataFrame(dct)
+                summaryData.to_csv(f'{self.output_dir}/{video.split(".")[0]}.csv', index=False, header=True)
+
+                rawData = pd.DataFrame(self.data[video])
+                rawData.rename_axis("Timestamp (s)")
+                rawData.to_csv(f'{self.output_dir}/{video.split(".")[0]}_raw.csv', header=True)
+                
+                VAData = pd.DataFrame(self.velocityAreaData[video])
+                VAData.rename_axis("Timestamp (s)")
+                VAData.to_csv(f'{self.output_dir}/{video.split(".")[0]}_VA.csv', header=True)
+                
         self.summaryPlot.update() # update GUI
         if self.NPMPlot.isVisible() and self.npmData:
             data=[]
@@ -821,6 +830,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow): # main window
                 originalOut = cv2.VideoWriter(f'{self.output_dir}/{adjName}_original.mp4', fourcc, frame_fps, (frame_width,frame_height))
                 self.summaryData[videoName].clear()
                 self.data[videoName].clear()
+                self.velocityAreaData[videoName].clear()
                 collectData.clear()
                 frames.clear()
                 detectedContours=[]
@@ -1199,6 +1209,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow): # main window
             self.colors[videoName]=random_neon_color()
             self.videoNames.append(videoName)
             self.data[videoName]={}
+            self.velocityAreaData[videoName]={}
             self.dataTemp[videoName]={}
             self.COUNTADDVIDEO+=1
             self.printNewLine(f'Added video: {videoName}')
@@ -1206,7 +1217,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow): # main window
             playVideo.signals.result.connect(self.onFrameReady)
             self.videoConnections.append(playVideo)
             self.threadPool.start(playVideo)  # Start the worker
-            self.backSubsMOG2[videoName] = cv2.createBackgroundSubtractorMOG2(history=300, varThreshold=16+48*self.subBackVal)
+            self.backSubsMOG2[videoName] = cv2.createBackgroundSubtractorMOG2(history=90, varThreshold=16+48*self.subBackVal)
             self.backSubsKNN[videoName] = cv2.createBackgroundSubtractorKNN(dist2Threshold=100+500*self.subBackVal, history=90, detectShadows=False)
     
     def printNewLine(self, msg):
@@ -1344,12 +1355,13 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow): # main window
                     self.printNewLine(f'Invalid frames for {name}!')
                     return None
                 if len(frames) > 1:
+                    print(type(frames))
                     processFrame = cv2.convertScaleAbs(np.sum(frames, axis=0).astype(np.uint8))
             elif isinstance(frame, list):
                 processFrame = frame[0]
             contours, hierarchy = cv2.findContours(processFrame, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
             for contour in contours:
-                if cv2.contourArea(contour) < self.frameDifVal or cv2.contourArea(contour) > self.frameDiffValueMax.value():
+                if cv2.contourArea(contour) < self.frameDifVal:
                     continue
                 box2D = cv2.minAreaRect(contour)
                 box = cv2.boxPoints(box2D)
@@ -1369,6 +1381,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow): # main window
             if not self.record.isChecked(): # do nothing if record not pressed
                 self.data[name]={}
                 self.dataTemp[name]={}
+                self.velocityAreaData[name]={}
                 self.rectBuffer[name]={}
                 return (boxes, centers), False, False
             elif boxes2D and self.clearPlotsTruth:
@@ -1381,6 +1394,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow): # main window
                         self.data[name][i]={timeStamp : box2D}
                         self.dataTemp[name][n][i]={timeStamp : box2D, 'corner': cv2.boxPoints(box2D)[0]} # used to return specifically previous frame rectangle information
                         self.rectBuffer[name][i]={'velocities':[],'angularVelocities':[]}
+                        self.velocityAreaData[name][i]={}
                         i+=1
                     self.printNewLine(f'Found {i} objects in frame {n} for {name}')
                     return (boxes, centers), False, False
@@ -1429,11 +1443,17 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow): # main window
                                 alignment, midpoint, centerpoint=calculateAngle(newBox2D, new_corner, self.pixToum)
                                 #alignment = alignment*4.5
                                 velocities = np.diff(centers, axis=0)[0]/(timeDif*self.pixToum)
+                                area = np.prod(newBox2D[1])
+                                dimensions = np.array(newBox2D[1])
+                                center = np.array(newBox2D[0])
                                 
                                 labelPos = self.getLabelPos(newBox2D)
                                 if angle_dif:
                                     labelPos= new_corner.astype(int)
-
+                                    
+                                self.velocityAreaData[name][oldBoxObject].update({timeStamp : [tuple(velocities*self.pixToum), 
+                                                                                               tuple(dimensions),
+                                                                                               tuple(center)]})
                                 self.data[name][oldBoxObject].update({timeStamp : newBox2D})
                                 self.dataTemp[name][n][oldBoxObject]={timeStamp : newBox2D, 'corner' : new_corner}
 
@@ -1490,6 +1510,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow): # main window
                             self.data[name][j]={timeStamp : newBox2D}
                             self.dataTemp[name][n][j]={timeStamp : newBox2D, 'corner': detected_box[0]}
                             self.rectBuffer[name][j]={'velocities':[],'angularVelocities':[]}
+                            self.velocityAreaData[name][j]={}
 
                 if frameVelocities and frameRotVelocities and frameAlignment:
                     if np.array(frameVelocities).size == 0:
