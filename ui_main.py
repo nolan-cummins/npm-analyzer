@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_main_scrollableWyqAZP.ui'
+## Form generated from reading UI file 'ui_main_scrollablepbhqSt.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -242,6 +242,25 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_2.addWidget(self.threshold_5)
 
+        self.autoLabel = QLabel(self.layoutWidget)
+        self.autoLabel.setObjectName(u"autoLabel")
+        self.autoLabel.setMinimumSize(QSize(0, 0))
+        self.autoLabel.setMaximumSize(QSize(50, 16777215))
+        self.autoLabel.setFont(font2)
+        self.autoLabel.setLayoutDirection(Qt.LayoutDirection.RightToLeft)
+        self.autoLabel.setFrameShape(QFrame.Shape.NoFrame)
+        self.autoLabel.setFrameShadow(QFrame.Shadow.Raised)
+        self.autoLabel.setTextFormat(Qt.TextFormat.RichText)
+        self.autoLabel.setAlignment(Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTrailing|Qt.AlignmentFlag.AlignVCenter)
+
+        self.horizontalLayout_2.addWidget(self.autoLabel)
+
+        self.autoToggle = QCheckBox(self.layoutWidget)
+        self.autoToggle.setObjectName(u"autoToggle")
+        self.autoToggle.setMaximumSize(QSize(20, 16777215))
+
+        self.horizontalLayout_2.addWidget(self.autoToggle)
+
         self.threshold_6 = QLabel(self.layoutWidget)
         self.threshold_6.setObjectName(u"threshold_6")
         self.threshold_6.setMinimumSize(QSize(0, 0))
@@ -300,6 +319,101 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_11.addLayout(self.verticalLayout_2)
 
+        self.verticalLayout_9 = QVBoxLayout()
+        self.verticalLayout_9.setObjectName(u"verticalLayout_9")
+        self.horizontalLayout_19 = QHBoxLayout()
+        self.horizontalLayout_19.setObjectName(u"horizontalLayout_19")
+        self.contrast_2 = QLabel(self.layoutWidget)
+        self.contrast_2.setObjectName(u"contrast_2")
+        self.contrast_2.setFont(font2)
+        self.contrast_2.setFrameShape(QFrame.Shape.NoFrame)
+        self.contrast_2.setFrameShadow(QFrame.Shadow.Raised)
+        self.contrast_2.setTextFormat(Qt.TextFormat.RichText)
+        self.contrast_2.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.horizontalLayout_19.addWidget(self.contrast_2)
+
+        self.adaptMethod = QComboBox(self.layoutWidget)
+        self.adaptMethod.addItem("")
+        self.adaptMethod.addItem("")
+        self.adaptMethod.setObjectName(u"adaptMethod")
+        self.adaptMethod.setEnabled(False)
+        self.adaptMethod.setMaximumSize(QSize(75, 16777215))
+
+        self.horizontalLayout_19.addWidget(self.adaptMethod)
+
+
+        self.verticalLayout_9.addLayout(self.horizontalLayout_19)
+
+        self.horizontalLayout_11 = QHBoxLayout()
+        self.horizontalLayout_11.setObjectName(u"horizontalLayout_11")
+        self.adaptToggle = QCheckBox(self.layoutWidget)
+        self.adaptToggle.setObjectName(u"adaptToggle")
+        self.adaptToggle.setFont(font2)
+
+        self.horizontalLayout_11.addWidget(self.adaptToggle)
+
+        self.adaptSliderArea = QSlider(self.layoutWidget)
+        self.adaptSliderArea.setObjectName(u"adaptSliderArea")
+        self.adaptSliderArea.setEnabled(False)
+        self.adaptSliderArea.setMinimum(0)
+        self.adaptSliderArea.setMaximum(99)
+        self.adaptSliderArea.setSingleStep(3)
+        self.adaptSliderArea.setValue(21)
+        self.adaptSliderArea.setOrientation(Qt.Orientation.Horizontal)
+        self.adaptSliderArea.setInvertedAppearance(False)
+        self.adaptSliderArea.setInvertedControls(False)
+        self.adaptSliderArea.setTickPosition(QSlider.TickPosition.TicksBelow)
+        self.adaptSliderArea.setTickInterval(9)
+
+        self.horizontalLayout_11.addWidget(self.adaptSliderArea)
+
+        self.adaptValueArea = QSpinBox(self.layoutWidget)
+        self.adaptValueArea.setObjectName(u"adaptValueArea")
+        self.adaptValueArea.setEnabled(False)
+        self.adaptValueArea.setMinimumSize(QSize(80, 0))
+        self.adaptValueArea.setMaximumSize(QSize(80, 16777215))
+        font3 = QFont()
+        font3.setPointSize(10)
+        self.adaptValueArea.setFont(font3)
+        self.adaptValueArea.setMinimum(3)
+        self.adaptValueArea.setMaximum(99)
+        self.adaptValueArea.setSingleStep(2)
+        self.adaptValueArea.setValue(21)
+
+        self.horizontalLayout_11.addWidget(self.adaptValueArea)
+
+        self.adaptSliderC = QSlider(self.layoutWidget)
+        self.adaptSliderC.setObjectName(u"adaptSliderC")
+        self.adaptSliderC.setEnabled(False)
+        self.adaptSliderC.setMinimum(-25)
+        self.adaptSliderC.setMaximum(25)
+        self.adaptSliderC.setValue(4)
+        self.adaptSliderC.setOrientation(Qt.Orientation.Horizontal)
+        self.adaptSliderC.setInvertedAppearance(False)
+        self.adaptSliderC.setInvertedControls(False)
+        self.adaptSliderC.setTickPosition(QSlider.TickPosition.TicksBelow)
+        self.adaptSliderC.setTickInterval(10)
+
+        self.horizontalLayout_11.addWidget(self.adaptSliderC)
+
+        self.adaptValueC = QSpinBox(self.layoutWidget)
+        self.adaptValueC.setObjectName(u"adaptValueC")
+        self.adaptValueC.setEnabled(False)
+        self.adaptValueC.setMinimumSize(QSize(80, 0))
+        self.adaptValueC.setFont(font3)
+        self.adaptValueC.setMinimum(-25)
+        self.adaptValueC.setMaximum(25)
+        self.adaptValueC.setValue(4)
+
+        self.horizontalLayout_11.addWidget(self.adaptValueC)
+
+
+        self.verticalLayout_9.addLayout(self.horizontalLayout_11)
+
+
+        self.verticalLayout_11.addLayout(self.verticalLayout_9)
+
         self.verticalLayout_10 = QVBoxLayout()
         self.verticalLayout_10.setObjectName(u"verticalLayout_10")
         self.contour_2 = QLabel(self.layoutWidget)
@@ -314,90 +428,41 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_12 = QHBoxLayout()
         self.horizontalLayout_12.setObjectName(u"horizontalLayout_12")
-        self.contourToggle = QCheckBox(self.layoutWidget)
-        self.contourToggle.setObjectName(u"contourToggle")
-        self.contourToggle.setFont(font2)
+        self.embossToggle = QCheckBox(self.layoutWidget)
+        self.embossToggle.setObjectName(u"embossToggle")
+        self.embossToggle.setFont(font2)
 
-        self.horizontalLayout_12.addWidget(self.contourToggle)
+        self.horizontalLayout_12.addWidget(self.embossToggle)
 
-        self.contourSlider = QSlider(self.layoutWidget)
-        self.contourSlider.setObjectName(u"contourSlider")
-        self.contourSlider.setEnabled(False)
-        self.contourSlider.setFont(font2)
-        self.contourSlider.setMinimum(-100)
-        self.contourSlider.setMaximum(100)
-        self.contourSlider.setOrientation(Qt.Orientation.Horizontal)
-        self.contourSlider.setInvertedAppearance(False)
-        self.contourSlider.setInvertedControls(False)
-        self.contourSlider.setTickPosition(QSlider.TickPosition.TicksBelow)
-        self.contourSlider.setTickInterval(10)
+        self.embossSlider = QSlider(self.layoutWidget)
+        self.embossSlider.setObjectName(u"embossSlider")
+        self.embossSlider.setEnabled(False)
+        self.embossSlider.setFont(font2)
+        self.embossSlider.setMinimum(-100)
+        self.embossSlider.setMaximum(100)
+        self.embossSlider.setOrientation(Qt.Orientation.Horizontal)
+        self.embossSlider.setInvertedAppearance(False)
+        self.embossSlider.setInvertedControls(False)
+        self.embossSlider.setTickPosition(QSlider.TickPosition.TicksBelow)
+        self.embossSlider.setTickInterval(10)
 
-        self.horizontalLayout_12.addWidget(self.contourSlider)
+        self.horizontalLayout_12.addWidget(self.embossSlider)
 
-        self.contourValue = QSpinBox(self.layoutWidget)
-        self.contourValue.setObjectName(u"contourValue")
-        self.contourValue.setEnabled(False)
-        self.contourValue.setMinimumSize(QSize(100, 0))
-        self.contourValue.setFont(font2)
-        self.contourValue.setMinimum(-100)
-        self.contourValue.setMaximum(100)
+        self.embossValue = QSpinBox(self.layoutWidget)
+        self.embossValue.setObjectName(u"embossValue")
+        self.embossValue.setEnabled(False)
+        self.embossValue.setMinimumSize(QSize(100, 0))
+        self.embossValue.setFont(font2)
+        self.embossValue.setMinimum(-100)
+        self.embossValue.setMaximum(100)
 
-        self.horizontalLayout_12.addWidget(self.contourValue)
+        self.horizontalLayout_12.addWidget(self.embossValue)
 
 
         self.verticalLayout_10.addLayout(self.horizontalLayout_12)
 
 
         self.verticalLayout_11.addLayout(self.verticalLayout_10)
-
-        self.verticalLayout_9 = QVBoxLayout()
-        self.verticalLayout_9.setObjectName(u"verticalLayout_9")
-        self.contrast_2 = QLabel(self.layoutWidget)
-        self.contrast_2.setObjectName(u"contrast_2")
-        self.contrast_2.setFont(font2)
-        self.contrast_2.setFrameShape(QFrame.Shape.NoFrame)
-        self.contrast_2.setFrameShadow(QFrame.Shadow.Raised)
-        self.contrast_2.setTextFormat(Qt.TextFormat.RichText)
-        self.contrast_2.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-        self.verticalLayout_9.addWidget(self.contrast_2)
-
-        self.horizontalLayout_11 = QHBoxLayout()
-        self.horizontalLayout_11.setObjectName(u"horizontalLayout_11")
-        self.contrastToggle = QCheckBox(self.layoutWidget)
-        self.contrastToggle.setObjectName(u"contrastToggle")
-        self.contrastToggle.setFont(font2)
-
-        self.horizontalLayout_11.addWidget(self.contrastToggle)
-
-        self.contrastSlider = QSlider(self.layoutWidget)
-        self.contrastSlider.setObjectName(u"contrastSlider")
-        self.contrastSlider.setEnabled(False)
-        self.contrastSlider.setMinimum(-100)
-        self.contrastSlider.setMaximum(100)
-        self.contrastSlider.setOrientation(Qt.Orientation.Horizontal)
-        self.contrastSlider.setInvertedAppearance(False)
-        self.contrastSlider.setInvertedControls(False)
-        self.contrastSlider.setTickPosition(QSlider.TickPosition.TicksBelow)
-        self.contrastSlider.setTickInterval(10)
-
-        self.horizontalLayout_11.addWidget(self.contrastSlider)
-
-        self.contrastValue = QSpinBox(self.layoutWidget)
-        self.contrastValue.setObjectName(u"contrastValue")
-        self.contrastValue.setEnabled(False)
-        self.contrastValue.setMinimumSize(QSize(100, 0))
-        self.contrastValue.setFont(font2)
-        self.contrastValue.setMinimum(-100)
-        self.contrastValue.setMaximum(100)
-
-        self.horizontalLayout_11.addWidget(self.contrastValue)
-
-
-        self.verticalLayout_9.addLayout(self.horizontalLayout_11)
-
-
-        self.verticalLayout_11.addLayout(self.verticalLayout_9)
 
         self.verticalLayout_16 = QVBoxLayout()
         self.verticalLayout_16.setObjectName(u"verticalLayout_16")
@@ -862,8 +927,6 @@ class Ui_MainWindow(object):
         self.frameDiffValue.setEnabled(False)
         self.frameDiffValue.setMinimumSize(QSize(80, 0))
         self.frameDiffValue.setMaximumSize(QSize(80, 16777215))
-        font3 = QFont()
-        font3.setPointSize(10)
         self.frameDiffValue.setFont(font3)
         self.frameDiffValue.setMinimum(0)
         self.frameDiffValue.setMaximum(999)
@@ -1063,13 +1126,18 @@ class Ui_MainWindow(object):
         self.record.setText(QCoreApplication.translate("MainWindow", u"Record Data", None))
         self.trackingTitle_3.setText(QCoreApplication.translate("MainWindow", u"Filters", None))
         self.threshold_5.setText(QCoreApplication.translate("MainWindow", u"Threshold", None))
+        self.autoLabel.setText(QCoreApplication.translate("MainWindow", u"Auto", None))
+        self.autoToggle.setText("")
         self.threshold_6.setText(QCoreApplication.translate("MainWindow", u"Invert", None))
         self.invertToggle.setText("")
         self.thresholdToggle.setText("")
+        self.contrast_2.setText(QCoreApplication.translate("MainWindow", u"Adaptive Threshold", None))
+        self.adaptMethod.setItemText(0, QCoreApplication.translate("MainWindow", u"Mean", None))
+        self.adaptMethod.setItemText(1, QCoreApplication.translate("MainWindow", u"Gaussian", None))
+
+        self.adaptToggle.setText("")
         self.contour_2.setText(QCoreApplication.translate("MainWindow", u"Emboss", None))
-        self.contourToggle.setText("")
-        self.contrast_2.setText(QCoreApplication.translate("MainWindow", u"Contrast", None))
-        self.contrastToggle.setText("")
+        self.embossToggle.setText("")
         self.blurTitle_2.setText(QCoreApplication.translate("MainWindow", u"Gaussian Blur", None))
         self.blurToggle.setText("")
         self.dilationTitle_3.setText(QCoreApplication.translate("MainWindow", u"Dilation", None))

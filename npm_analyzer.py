@@ -85,10 +85,12 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow): # main window
             self.consecutiveFramesValue: [self.onConsecutiveFramesValue],
             self.contDetectValue: [self.contDetectSlider.setValue, self.onPersistence],
             self.contDetectSlider: [self.contDetectValue.setValue],
-            self.contourValue: [self.contourSlider.setValue, self.embossFunction],
-            self.contourSlider: [self.contourValue.setValue],
-            self.contrastValue: [self.contrastSlider.setValue, self.contrastFunction],
-            self.contrastSlider: [self.contrastValue.setValue],
+            self.embossValue: [self.embossSlider.setValue, self.embossFunction],
+            self.embossSlider: [self.embossValue.setValue],
+            self.adaptSliderArea: [self.adaptValueArea.setValue, self.adaptFunction],
+            self.adaptValueArea: [self.adaptSliderArea.setValue, self.adaptFunction],
+            self.adaptSliderC: [self.adaptValueC.setValue, self.adaptFunction],
+            self.adaptValueC: [self.adaptSliderC.setValue, self.adaptFunction],
             self.dilationValue: [self.dilationSlider.setValue, self.onDilate],
             self.dilationSlider: [self.dilationValue.setValue],
             self.frameDiffValue: [self.onFrameDifferencing],
@@ -116,8 +118,9 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow): # main window
             self.dilationToggle: [self.dilationSlider.setEnabled, self.onDilate, self.dilationValue.setEnabled],
             self.medianToggle: [self.medianSlider.setEnabled, self.onMedian, self.medianValue.setEnabled],
             
-            self.contourToggle: [self.contourValue.setEnabled, self.contourSlider.setEnabled, self.embossFunction],
-            self.contrastToggle: [self.contrastValue.setEnabled, self.contrastSlider.setEnabled, self.contrastFunction],
+            self.embossToggle: [self.embossValue.setEnabled, self.embossSlider.setEnabled, self.embossFunction],
+            self.adaptToggle: [self.adaptValueArea.setEnabled, self.adaptSliderArea.setEnabled, self.adaptValueC.setEnabled,
+                               self.adaptSliderC.setEnabled, self.adaptMethod.setEnabled, self.adaptFunction],
             self.thresholdToggle: [self.thresholdValue.setEnabled, self.thresholdSlider.setEnabled, self.thresholdFunction],
             
             self.aToggle: [lambda checked: self.update_toggles(self.aToggle, checked)],
@@ -132,7 +135,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow): # main window
         
         # initialize values
         self.thresholdVal = 0
-        self.contrastVal = self.embossVal = 1
+        self.adaptVal = self.embossVal = 1
         self.videos = []
         self.testButton.clicked.connect(self.addVideos)
         self.testButton.hide()  # Test button to add blank videos
@@ -151,6 +154,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow): # main window
         self.frameDiffValue.setValue(30)
         self.persistence = 30
         self.carriageReturnLines = []
+        self.area_value = 21
 
         # set empty placeholder video
         self.video_1.setIcon(QtGui.QIcon(u"background.jpg"))
@@ -473,33 +477,44 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow): # main window
 
             try:
                 if checked or len(self.videos) == 0:
-                    if any([self.contrastToggle.isChecked(),
+                    if any([self.adaptToggle.isChecked(),
                             self.blurToggle.isChecked(),
                             self.dilationToggle.isChecked(),
                             self.subBackToggle.isChecked(),
-                            self.contourToggle.isChecked(),
+                            self.embossToggle.isChecked(),
                             self.thresholdToggle.isChecked(),
                             self.frameDiffToggle.isChecked()]): # don't darken if only one video is shown or if any process is toggled
                         dark = False
-                        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY) # remove colors, most processes, such as frame differencing require this
-                    if self.contrastToggle.isChecked(): # contrast
-                        frame = cv2.convertScaleAbs(frame, alpha=self.contrastVal, beta=0)
-                        
+                        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY) # remove colors, most processes, such as frame differencing require this  
                     if self.blurToggle.isChecked(): # gaussian blur
                         frame = cv2.GaussianBlur(frame, (self.blurVal, self.blurVal), 0)
+
+                    if self.adaptToggle.isChecked(): # adapt
+                        method = self.adaptMethod.currentText()
+                        if method == "Mean":
+                            frame = cv2.adaptiveThreshold(frame,255,cv2.ADAPTIVE_THRESH_MEAN_C ,cv2.THRESH_BINARY,self.area_value,self.adaptValueC.value())
+                        elif method == "Gaussian":
+                            frame = cv2.adaptiveThreshold(frame,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C ,cv2.THRESH_BINARY,self.area_value,self.adaptValueC.value())
+
+                    if self.thresholdToggle.isChecked(): # threshold
+                        if self.autoToggle.isChecked():
+                            otsu, frame = cv2.threshold(frame, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+                            otsu_normal = int(otsu/255*100)
+                            self.thresholdValue.setValue(otsu_normal)
+                            self.thresholdSlider.setValue(otsu_normal)
+                        else:
+                            _, frame = cv2.threshold(frame, self.thresholdVal, 255, cv2.THRESH_BINARY)
                         
                     if self.subBackToggle.isChecked(): # subtract background
                         if self.subBackMethod.currentText() == "MOG2": # Mixture of Gaussians 2 background subtraction method
                             frame = self.backSubsMOG2[videoName].apply(frame, learningRate=0.001)
                         if self.subBackMethod.currentText() == "KNN": # K Nearest Neighbors background subtraction method
                             frame = self.backSubsKNN[videoName].apply(frame, learningRate=0.01)
+                        _, frame = cv2.threshold(frame, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
                             
-                    if self.contourToggle.isChecked(): # emboss, misnamed as "contour" when originally writing, too lazy to replace every reference
+                    if self.embossToggle.isChecked():
                         kernel = np.array([[2, 1, 0],[1, 0, -1],[0, -1, -2]])
                         frame = cv2.convertScaleAbs(cv2.filter2D(frame, -1, kernel)*self.embossVal)
-                        
-                    if self.thresholdToggle.isChecked(): # threshold
-                        _, frame = cv2.threshold(frame, self.thresholdVal, 255, cv2.THRESH_BINARY)
 
                     if self.invertToggle.isChecked():
                         frame = cv2.bitwise_not(frame)
@@ -846,18 +861,30 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow): # main window
                 self.printCarriageReturn(msg)
         
     def thresholdFunction(self, *args):
+        if self.adaptToggle.isChecked() and self.thresholdToggle.isChecked():
+            self.adaptToggle.setChecked(False)
         self.thresholdVal = (self.thresholdValue.value()/100)*255
         msg = f'Setting threshold to: {int(100*self.thresholdVal/255)}%'
         self.checkInitialized(args, msg)
 
-    def contrastFunction(self, *args):
-        self.contrastVal = (self.contrastValue.value()/100)+1 # values greater than one increase intensity, less than decrease
-        msg = f'Setting contrast to: {int(100*self.contrastVal/2)}%'
+    def adaptFunction(self, *args):
+        if self.thresholdToggle.isChecked() and self.adaptToggle.isChecked():
+            self.thresholdToggle.setChecked(False)
+        sender = self.sender()
+        name = sender.objectName()
+        if "Area" in name:
+            area_value = self.adaptValueArea.value()
+            if area_value % 2 == 0:
+                area_value+=1
+            self.area_value = area_value
+            msg = f'Setting adapt_area to: {area_value}'
+        else:
+            msg = f'Setting adapt_c to: {self.adaptValueC.value()}'
         self.checkInitialized(args, msg)
 
     def embossFunction(self, *args):
-        self.embossVal = (self.contourValue.value()/100)+1 # values greater than one increase intensity, less than decrease
-        msg = f'Setting emboss to: {int(self.contourValue.value())}%'
+        self.embossVal = (self.embossValue.value()/100)+1 # values greater than one increase intensity, less than decrease
+        msg = f'Setting emboss to: {int(self.embossValue.value())}%'
         self.checkInitialized(args, msg)
 
     def onBlur(self, *args):
