@@ -1,7 +1,7 @@
 # npm-analyser
 Tool to analyze NPM data
 
-Run "python3 npm.py"
+Run "python3 npm_analyzer.py"
 
 **Requirements**:
 PySide6~=6.8.1
