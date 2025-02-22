@@ -376,6 +376,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow): # main window
         
         self.frameDiffValue.valueChanged.connect(self.onFrameDifferencing)
         self.frameDiffToggle.toggled.connect(self.onFrameDifferencing)
+        self.frameDiffSliderMax.valueChanged.connect(self.frameDiffValueMax.setValue)
+        self.frameDiffValueMax.valueChanged.connect(self.frameDiffSliderMax.setValue)
         
         self.subBackValue.valueChanged.connect(self.subtractBackgroundFunction)
         self.subBackToggle.toggled.connect(self.subtractBackgroundFunction)
@@ -1355,13 +1357,13 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow): # main window
                     self.printNewLine(f'Invalid frames for {name}!')
                     return None
                 if len(frames) > 1:
-                    print(type(frames))
+                    #print(type(frames))
                     processFrame = cv2.convertScaleAbs(np.sum(frames, axis=0).astype(np.uint8))
             elif isinstance(frame, list):
                 processFrame = frame[0]
             contours, hierarchy = cv2.findContours(processFrame, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
             for contour in contours:
-                if cv2.contourArea(contour) < self.frameDifVal:
+                if cv2.contourArea(contour) < self.frameDifVal or cv2.contourArea(contour) > self.frameDiffValueMax.value():
                     continue
                 box2D = cv2.minAreaRect(contour)
                 box = cv2.boxPoints(box2D)
